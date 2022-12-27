@@ -9,9 +9,9 @@ namespace Mc2.CrudTest.Domain.Abstractions;
 
 public interface ICustomerRepository
 {
-    // TODO: get customers (and get count) by specification
-    IEnumerable<Customer> GetCustomers();
-    int GetCount();
+    IEnumerable<Customer> GetCustomers(ISpecification<Customer> specification);
+    IEnumerable<Customer> GetCustomers(ISpecification<Customer> specification, int skip, int take);
+    int GetCount(ISpecification<Customer> specification);
 
     Customer GetCustomerByID(Guid id);
     void InsertCustomer(Customer customer);
