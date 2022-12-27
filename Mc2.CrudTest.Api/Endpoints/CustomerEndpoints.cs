@@ -10,14 +10,15 @@ namespace Mc2.CrudTest.Api.Endpoints;
 
 public static class CustomerEndpoints
 {
-    private const string CustomerEndpointPath = "Customers";
+    private const string CustomersEndpointPath = "Customers";
 
     public static void MapCustomerEndpoints(this WebApplication app)
     {
-        app.MapPost($"/{CustomerEndpointPath}", CreateCustomer);
-        app.MapGet($"/{CustomerEndpointPath}/{{ID}}", GetCustomer);
-        app.MapGet($"/{CustomerEndpointPath}", GetCustomers);
-        app.MapDelete($"/{CustomerEndpointPath}/{{ID}}", DeleteCustomer);
+        app.MapPost($"/{CustomersEndpointPath}", CreateCustomer);
+        app.MapGet($"/{CustomersEndpointPath}/{{ID}}", GetCustomer);
+        app.MapGet($"/{CustomersEndpointPath}", GetCustomers);
+        app.MapDelete($"/{CustomersEndpointPath}/{{ID}}", DeleteCustomer);
+        app.MapPut($"/{CustomersEndpointPath}", UpdateCustomer);
     }
 
     private static async Task<IResult> CreateCustomer([FromBody] CreateCustomerRequest customer,
@@ -32,7 +33,7 @@ public static class CustomerEndpoints
         try
         {
             var res = await mediator.Send(req, cancellationToken);
-            return Results.Created($"/{CustomerEndpointPath}/{res.ID}", CustomerResponse.Create(res));
+            return Results.Created($"/{CustomersEndpointPath}/{res.ID}", CustomerResponse.Create(res));
         }
         catch(BaseException ex)
         {
@@ -81,6 +82,28 @@ public static class CustomerEndpoints
         catch (CustomerNotFoundException)
         {
             return Results.NotFound();
+        }
+    }
+
+    private static async Task<IResult> UpdateCustomer([FromBody] UpdateCustomerRequest customer,
+        [FromServices] IMediator mediator,
+        CancellationToken cancellationToken)
+    {
+        var req = customer.MapToUpdateCustomerCommand();
+
+        try
+        {
+            _ = await mediator.Send(req, cancellationToken);
+            return Results.Ok();
+        }
+        // A PUT endpoint either updates an already available record or creates new one but for simplicity my endpoint only can perform updates.
+        catch (CustomerNotFoundException)
+        {
+            return Results.NotFound();
+        }
+        catch(BaseException ex)
+        {
+            return Results.Problem(ex.Message, statusCode: 400);
         }
     }
 }

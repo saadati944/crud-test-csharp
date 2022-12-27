@@ -41,3 +41,10 @@ public class InvalidBankAccountNumberException : BaseException
     {
     }
 }
+
+public class InvalidDateOfBirthException : BaseException
+{
+    public InvalidDateOfBirthException(string message) : base(message)
+    {
+    }
+}
