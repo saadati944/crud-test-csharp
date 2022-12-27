@@ -1,10 +1,13 @@
 using Mc2.CrudTest.Api.Endpoints;
+using Mc2.CrudTest.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.RegisterDatabase(builder.Configuration.GetConnectionString("CrudTestConnectionString")!);
+builder.Services.RegisterServices();
 
 var app = builder.Build();
 
@@ -15,6 +18,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app?.MapCustomerEndpoints();
+app.MapCustomerEndpoints();
 
 app.Run();
