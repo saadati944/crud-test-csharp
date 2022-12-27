@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mc2.CrudTest.Domain.Customer
+namespace Mc2.CrudTest.Domain.CustomerAggregate
 {
     public class Customer
     {
