@@ -4,7 +4,8 @@ using Mc2.CrudTest.Domain.CustomerAggregate;
 
 namespace Mc2.CrudTest.Api.Models;
 
-public sealed record CreateCustomerRequest(string FirstName,
+public sealed record CreateCustomerRequest(
+    string FirstName,
     string LastName,
     DateTime DateOfBirth,
     string PhoneNumber,
@@ -41,12 +42,11 @@ public sealed record CustomerResponse(
             customer.Firstname,
             customer.Lastname,
             customer.DateOfBirth,
-            customer.Email.Address,
             customer.PhoneNumber.NumberString,
+            customer.Email.Address,
             customer.BankAccountNumber);
     }
 }
-
 
 // This model can inherit from a generic base model but I have only one model
 // so creating a base model is not neccessary
@@ -64,5 +64,29 @@ public sealed record CustomersResponse(
             customers.Total,
             customers.Customers.Select(CustomerResponse.Create)
         );
+    }
+}
+
+public sealed record UpdateCustomerRequest(
+    Guid id,
+    string FirstName,
+    string LastName,
+    DateTime DateOfBirth,
+    string PhoneNumber,
+    string EmailAddress,
+    string BankAccountNumber)
+{
+    public UpdateCustomerCommand MapToUpdateCustomerCommand()
+    {
+        return new UpdateCustomerCommand
+        {
+            ID = this.id,
+            Firstname = this.FirstName,
+            Lastname = this.LastName,
+            DateOfBirth = this.DateOfBirth,
+            EmailAddress = this.EmailAddress,
+            PhoneNumber = this.PhoneNumber,
+            BankAccountNumber = this.BankAccountNumber,
+        };
     }
 }
