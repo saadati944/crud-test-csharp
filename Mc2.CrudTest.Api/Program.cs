@@ -1,4 +1,5 @@
 using Mc2.CrudTest.Api.Endpoints;
+using Mc2.CrudTest.Application;
 using Mc2.CrudTest.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.RegisterDatabase(builder.Configuration.GetConnectionString("CrudTestConnectionString")!);
-builder.Services.RegisterServices();
+builder.Services.RegisterMediatR();
 
 var app = builder.Build();
 
