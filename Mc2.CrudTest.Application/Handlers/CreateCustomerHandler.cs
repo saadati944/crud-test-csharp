@@ -1,4 +1,5 @@
 ﻿using Mc2.CrudTest.Application.Commands;
+using Mc2.CrudTest.Domain.Abstractions;
 using Mc2.CrudTest.Domain.CustomerAggregate;
 using MediatR;
 using System;
@@ -11,9 +12,19 @@ namespace Mc2.CrudTest.Application.Handlers;
 
 public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand, Customer>
 {
+    private readonly ICustomerRepository _customerRepository;
+
+    public CreateCustomerHandler(ICustomerRepository customerRepository)
+    {
+        _customerRepository = customerRepository;
+    }
+
     public Task<Customer> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
         var customer = Customer.Create(request.Firstname, request.Lastname, request.DateOfBirth, request.PhoneNumber, request.EmailAddress, request.BankAccountNumber);
+        
+        _customerRepository.InsertCustomer(customer);
+        
         return Task.FromResult(customer);
     }
 }

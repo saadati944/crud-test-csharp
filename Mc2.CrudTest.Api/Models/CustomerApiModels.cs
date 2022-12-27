@@ -24,7 +24,7 @@ public sealed record CreateCustomerRequest(string FirstName,
     }
 }
 
-public sealed record CreateCustomerResponse(
+public sealed record CustomerResponse(
     Guid ID,
     string FirstName,
     string LastName,
@@ -34,9 +34,9 @@ public sealed record CreateCustomerResponse(
     string BankAccountNumber)
 
 {
-    public static CreateCustomerResponse CreateFromCustomer(Customer customer)
+    public static CustomerResponse CreateFromCustomer(Customer customer)
     {
-        return new CreateCustomerResponse(
+        return new CustomerResponse(
             customer.ID,
             customer.Firstname,
             customer.Lastname,

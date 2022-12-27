@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.RegisterDatabase(builder.Configuration.GetConnectionString("CrudTestConnectionString")!);
+builder.Services.RegisterServices();
 builder.Services.RegisterMediatR();
 
 var app = builder.Build();
