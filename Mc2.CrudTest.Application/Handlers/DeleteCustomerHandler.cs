@@ -27,6 +27,7 @@ public class DeleteCustomerHandler : IRequestHandler<DeleteCustomerCommand>
             throw new CustomerNotFoundException();
 
         _customerRepository.DeleteCustomer(customer);
+        _customerRepository.SaveChanges();
 
         return Task.FromResult(Unit.Value);
     }

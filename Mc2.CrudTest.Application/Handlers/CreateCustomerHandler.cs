@@ -24,7 +24,8 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand, Cust
         var customer = Customer.Create(request.Firstname, request.Lastname, request.DateOfBirth, request.PhoneNumber, request.EmailAddress, request.BankAccountNumber);
         
         _customerRepository.InsertCustomer(customer);
-        
+        _customerRepository.SaveChanges();
+
         return Task.FromResult(customer);
     }
 }
