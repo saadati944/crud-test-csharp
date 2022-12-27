@@ -35,6 +35,7 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Unit
         customer.BankAccountNumber = request.BankAccountNumber;
 
         _customerRepository.UpdateCustomer(customer);
+        _customerRepository.SaveChanges();
 
         return Task.FromResult(Unit.Value);
     }

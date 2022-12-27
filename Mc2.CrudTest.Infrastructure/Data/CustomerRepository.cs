@@ -1,5 +1,6 @@
 ﻿using Mc2.CrudTest.Domain.Abstractions;
 using Mc2.CrudTest.Domain.CustomerAggregate;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,16 @@ public class CustomerRepository : ICustomerRepository
     public Customer GetCustomerByID(Guid id)
     {
         return _context.Customers.Where(c => c.ID == id).FirstOrDefault();
+    }
+
+    public IEnumerable<Customer> GetCustomers()
+    {
+        return _context.Customers;
+    }
+
+    public int GetCount()
+    {
+        return _context.Customers.Count();
     }
 
     public void InsertCustomer(Customer customer)
