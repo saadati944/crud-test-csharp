@@ -1,5 +1,6 @@
 ﻿using Mc2.CrudTest.Api.Models;
 using Mc2.CrudTest.Application.Commands;
+using Mc2.CrudTest.Application.Exceptions;
 using Mc2.CrudTest.Application.Queries;
 using Mc2.CrudTest.Domain.Abstractions;
 using MediatR;
@@ -16,6 +17,7 @@ public static class CustomerEndpoints
         app.MapPost($"/{CustomerEndpointPath}", CreateCustomer);
         app.MapGet($"/{CustomerEndpointPath}/{{ID}}", GetCustomer);
         app.MapGet($"/{CustomerEndpointPath}", GetCustomers);
+        app.MapDelete($"/{CustomerEndpointPath}/{{ID}}", DeleteCustomer);
     }
 
     private static async Task<IResult> CreateCustomer([FromBody] CreateCustomerRequest customer,
@@ -63,5 +65,22 @@ public static class CustomerEndpoints
         var res = await mediator.Send(req, cancellationToken);
 
         return Results.Ok(CustomersResponse.Create(page, pageSize, res));
+    }
+
+    private static async Task<IResult> DeleteCustomer([FromRoute] Guid id,
+        [FromServices] IMediator mediator,
+        CancellationToken cancellationToken)
+    {
+        var req = new DeleteCustomerCommand { ID = id };
+
+        try
+        {
+            _ = await mediator.Send(req, cancellationToken);
+            return Results.NoContent();
+        }
+        catch (CustomerNotFoundException)
+        {
+            return Results.NotFound();
+        }
     }
 }
