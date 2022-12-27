@@ -18,5 +18,31 @@ public class CrudTestsContext : DbContext
     {
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Customer>()
+            .Property(c => c.Firstname)
+            .HasMaxLength(150);
+
+        modelBuilder.Entity<Customer>()
+            .Property(c => c.Lastname)
+            .HasMaxLength(150);
+
+        modelBuilder.Entity<Customer>()
+            .Property(c => c.BankAccountNumber)
+            .HasMaxLength(30);
+
+        modelBuilder.Entity<Customer>()
+            .OwnsOne(c => c.PhoneNumber);
+
+        modelBuilder.Entity<Customer>()
+            .OwnsOne(c => c.Email)
+            .Property(e => e.Address)
+            .IsRequired()
+            .HasMaxLength(200);
+    }
+
     public DbSet<Customer> Customers { get; set; }
 }

@@ -19,16 +19,16 @@ public class PhoneNumberTests
         var phone = PhoneNumber.Create(validNumber);
 
         // Assert
-        Assert.Equal(validNumber, phone.Digits);
-        Assert.Equal(validNumber, phone.Number);
+        Assert.Equal(validNumber, phone.NumberString);
     }
 
     [Theory]
-    [InlineData("+54 234 432 5436")] // use spaces
-    [InlineData("+2223443254364444")] // long number
-    [InlineData("asdf")] // bad format
-    [InlineData("")] // empty
     [InlineData(null)] // null
+    [InlineData("")] // empty
+    [InlineData("+22234432543644434")] // long number
+    [InlineData("+222")] // short number
+    [InlineData("+542d344325436")] // contains non-digit chars
+    [InlineData("asdf")] // bad format
     public void Create_With_an_invalid_phone_number_Throws_InvalidPhoneNumberException(string invalidNumber)
     {
         // Act

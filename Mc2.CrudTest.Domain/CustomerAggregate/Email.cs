@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mc2.CrudTest.Domain.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,47 +9,39 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Mc2.CrudTest.Domain.CustomerAggregate;
 
-public struct Email
+public partial class Email : ValueObject
 {
-    private const string EmailRegex = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
+    public string Address { get; init; }
 
-    public string Address { get; private set; }
+    private Email()
+    {
+    }
 
     private Email(string address)
     {
         Address = address;
     }
 
+
     public static Email Create(string address)
     {
         if (string.IsNullOrEmpty(address))
             throw new InvalidEmailException($"Empty address is not valid");
 
-        // Better to use "Source Generated RegEx", but this simple check is enough for now
-        if (!Regex.IsMatch(address, EmailRegex))
+        if (address.Length > 200)
+            throw new InvalidEmailException($"The length of the address can not be more than 200 characters");
+
+        if (!IsEmailValid().IsMatch(address))
             throw new InvalidEmailException($"Email address '{address}' is not valid");
 
         return new Email(address);
     }
 
-    public static bool operator ==(Email left, Email right)
+    protected override IEnumerable<object> GetEqualityComponents()
     {
-        return left.Address == right.Address;
+        yield return Address;
     }
 
-    public static bool operator !=(Email left, Email right)
-    {
-        return left.Address != right.Address;
-    }
-
-    public override bool Equals(object obj)
-    {
-        return obj is Email email &&
-               Address == email.Address;
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Address);
-    }
+    [GeneratedRegex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")]
+    private static partial Regex IsEmailValid();
 }
