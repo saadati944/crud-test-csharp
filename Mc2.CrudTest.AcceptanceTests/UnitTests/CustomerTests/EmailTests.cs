@@ -23,10 +23,13 @@ public class EmailTests
     }
 
     [Theory]
-    [InlineData("somthing @ somewhere ")] // use spaces
-    [InlineData("asdf.com")] // without @
-    [InlineData("")] // empty
     [InlineData(null)] // null
+    [InlineData("")] // empty
+    [InlineData("somthing @ somewhere ")] // bad format
+    [InlineData("asdf.com")] // bad format
+    [InlineData("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789" +
+        "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789" +
+        "1")] // long email (201 chars)
     public void Create_With_an_invalid_Email_Throws_InvalidEmailException(string invalidEmail)
     {
         // Act

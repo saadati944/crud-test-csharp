@@ -32,7 +32,7 @@ public class CustomerTests
         Assert.Equal(firstName, customer.Firstname);
         Assert.Equal(lastName, customer.Lastname);
         Assert.Equal(birthDate, customer.DateOfBirth);
-        Assert.Equal(phoneNumber, customer.PhoneNumber.Number);
+        Assert.Equal(phoneNumber, customer.PhoneNumber.NumberString);
         Assert.Equal(emailAddress, customer.Email.Address);
         Assert.Equal(bankAccountNumber, customer.BankAccountNumber);
     }

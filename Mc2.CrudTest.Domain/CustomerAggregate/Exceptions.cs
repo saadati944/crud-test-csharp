@@ -19,3 +19,24 @@ public class InvalidPhoneNumberException : Exception
     {
     }
 }
+
+public class InvalidFirstNameException : Exception
+{
+    public InvalidFirstNameException(string message) : base(message)
+    {
+    }
+}
+
+public class InvalidLastNameException : Exception
+{
+    public InvalidLastNameException(string message) : base(message)
+    {
+    }
+}
+
+public class InvalidBankAccountNumberException : Exception
+{
+    public InvalidBankAccountNumberException(string message) : base(message)
+    {
+    }
+}
