@@ -68,7 +68,6 @@ public sealed record CustomersResponse(
 }
 
 public sealed record UpdateCustomerRequest(
-    Guid id,
     string FirstName,
     string LastName,
     DateTime DateOfBirth,
@@ -80,7 +79,6 @@ public sealed record UpdateCustomerRequest(
     {
         return new UpdateCustomerCommand
         {
-            ID = this.id,
             Firstname = this.FirstName,
             Lastname = this.LastName,
             DateOfBirth = this.DateOfBirth,

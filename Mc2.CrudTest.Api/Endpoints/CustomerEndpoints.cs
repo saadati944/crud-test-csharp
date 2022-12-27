@@ -17,8 +17,8 @@ public static class CustomerEndpoints
         app.MapPost($"/{CustomersEndpointPath}", CreateCustomer);
         app.MapGet($"/{CustomersEndpointPath}/{{ID}}", GetCustomer);
         app.MapGet($"/{CustomersEndpointPath}", GetCustomers);
+        app.MapPut($"/{CustomersEndpointPath}/{{ID}}", UpdateCustomer);
         app.MapDelete($"/{CustomersEndpointPath}/{{ID}}", DeleteCustomer);
-        app.MapPut($"/{CustomersEndpointPath}", UpdateCustomer);
     }
 
     private static async Task<IResult> CreateCustomer([FromBody] CreateCustomerRequest customer,
@@ -68,6 +68,29 @@ public static class CustomerEndpoints
         return Results.Ok(CustomersResponse.Create(page, pageSize, res));
     }
 
+    private static async Task<IResult> UpdateCustomer([FromRoute] Guid id, [FromBody] UpdateCustomerRequest customer,
+        [FromServices] IMediator mediator,
+        CancellationToken cancellationToken)
+    {
+        var req = customer.MapToUpdateCustomerCommand();
+        req.ID = id;
+
+        try
+        {
+            _ = await mediator.Send(req, cancellationToken);
+            return Results.Ok();
+        }
+        // A PUT endpoint either updates an already available record or creates new one but for simplicity my endpoint only can perform updates.
+        catch (CustomerNotFoundException)
+        {
+            return Results.NotFound();
+        }
+        catch (BaseException ex)
+        {
+            return Results.Problem(ex.Message, statusCode: 400);
+        }
+    }
+
     private static async Task<IResult> DeleteCustomer([FromRoute] Guid id,
         [FromServices] IMediator mediator,
         CancellationToken cancellationToken)
@@ -82,28 +105,6 @@ public static class CustomerEndpoints
         catch (CustomerNotFoundException)
         {
             return Results.NotFound();
-        }
-    }
-
-    private static async Task<IResult> UpdateCustomer([FromBody] UpdateCustomerRequest customer,
-        [FromServices] IMediator mediator,
-        CancellationToken cancellationToken)
-    {
-        var req = customer.MapToUpdateCustomerCommand();
-
-        try
-        {
-            _ = await mediator.Send(req, cancellationToken);
-            return Results.Ok();
-        }
-        // A PUT endpoint either updates an already available record or creates new one but for simplicity my endpoint only can perform updates.
-        catch (CustomerNotFoundException)
-        {
-            return Results.NotFound();
-        }
-        catch(BaseException ex)
-        {
-            return Results.Problem(ex.Message, statusCode: 400);
         }
     }
 }
