@@ -1,0 +1,17 @@
+version: "3.2"
+
+volumes:
+  crud_test_data:
+
+services:
+  crud-test-sql-server:
+    container_name: crud-test-sql-server
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1433:1433"
+    volumes:
+      - crud_test_data:/var/opt/mssql
+    environment:
+      # Since this is a test project, it's okay to put passwords in source control
+      SA_PASSWORD: "!@QW34ertyui"
+      ACCEPT_EULA: "Y"
