@@ -1,6 +1,7 @@
 ﻿using Mc2.CrudTest.Application.Dtos;
 using Mc2.CrudTest.Application.Queries;
 using Mc2.CrudTest.Domain.Abstractions;
+using Mc2.CrudTest.Domain.CustomerAggregate;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -23,10 +24,12 @@ public class GetCustomersHandler : IRequestHandler<GetCustomersQuery, CustomersD
     {
         // TODO: add filter parameters
 
+        var allCustomersSpecification = new AllCustomersSpecification();
+
         return Task.FromResult(new CustomersDTO
         {
-            Total = _customerRepository.GetCount(),
-            Customers = _customerRepository.GetCustomers().Skip(request.Page * request.PageSize).Take(request.PageSize).ToList()
+            Total = _customerRepository.GetCount(allCustomersSpecification),
+            Customers = _customerRepository.GetCustomers(allCustomersSpecification, request.Page * request.PageSize, request.PageSize).ToList()
         });
     }
 }

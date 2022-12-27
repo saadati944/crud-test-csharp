@@ -28,14 +28,19 @@ public class CustomerRepository : ICustomerRepository
         return _context.Customers.Where(c => c.ID == id).FirstOrDefault();
     }
 
-    public IEnumerable<Customer> GetCustomers()
+    public IEnumerable<Customer> GetCustomers(ISpecification<Customer> specification)
     {
-        return _context.Customers;
+        return specification.Apply(_context.Customers);
+    }
+    
+    public IEnumerable<Customer> GetCustomers(ISpecification<Customer> specification, int skip, int take)
+    {
+        return GetCustomers(specification).Skip(skip).Take(take);
     }
 
-    public int GetCount()
+    public int GetCount(ISpecification<Customer> specification)
     {
-        return _context.Customers.Count();
+        return specification.Apply(_context.Customers).Count();
     }
 
     public void InsertCustomer(Customer customer)
