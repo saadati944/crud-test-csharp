@@ -12,8 +12,8 @@ namespace Mc2.CrudTest.Domain.CustomerAggregate
         // but for simplicity I just use my domain model as an entity.
         public Guid ID { get; set; }
 
-        public string? Firstname { get; set; }
-        public string? Lastname { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
