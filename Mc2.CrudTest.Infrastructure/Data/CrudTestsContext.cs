@@ -1,4 +1,4 @@
-﻿using Mc2.CrudTest.Domain.Customer;
+﻿using Mc2.CrudTest.Domain.CustomerAggregate;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
