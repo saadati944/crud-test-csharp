@@ -42,6 +42,15 @@ public class CrudTestsContext : DbContext
             .Property(e => e.Address)
             .IsRequired()
             .HasMaxLength(200);
+
+        modelBuilder.Entity<Customer>()
+            .OwnsOne(c => c.Email)
+            .HasIndex(e => e.Address)
+            .IsUnique();
+
+        modelBuilder.Entity<Customer>()
+            .HasIndex(c => new { c.Firstname, c.Lastname, c.DateOfBirth })
+            .IsUnique();
     }
 
     public DbSet<Customer> Customers { get; set; }
