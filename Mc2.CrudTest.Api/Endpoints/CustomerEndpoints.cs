@@ -9,12 +9,13 @@ namespace Mc2.CrudTest.Api.Endpoints;
 
 public static class CustomerEndpoints
 {
-    private const string CustomerEndpointPath = "Customer";
+    private const string CustomerEndpointPath = "Customers";
 
     public static void MapCustomerEndpoints(this WebApplication app)
     {
         app.MapPost($"/{CustomerEndpointPath}", CreateCustomer);
         app.MapGet($"/{CustomerEndpointPath}/{{ID}}", GetCustomer);
+        app.MapGet($"/{CustomerEndpointPath}", GetCustomers);
     }
 
     private static async Task<IResult> CreateCustomer([FromBody] CreateCustomerRequest customer,
@@ -29,7 +30,7 @@ public static class CustomerEndpoints
         try
         {
             var res = await mediator.Send(req, cancellationToken);
-            return Results.Created($"/{CustomerEndpointPath}/{res.ID}", CustomerResponse.CreateFromCustomer(res));
+            return Results.Created($"/{CustomerEndpointPath}/{res.ID}", CustomerResponse.Create(res));
         }
         catch(BaseException ex)
         {
@@ -44,7 +45,23 @@ public static class CustomerEndpoints
         var req = new GetCustomerQuery { ID = id };
         var res = await mediator.Send(req, cancellationToken);
         return res is not null
-            ? Results.Ok(CustomerResponse.CreateFromCustomer(res))
+            ? Results.Ok(CustomerResponse.Create(res))
             : Results.NotFound();
+    }
+
+    private static async Task<IResult> GetCustomers(
+        [FromServices] IMediator mediator,
+        CancellationToken cancellationToken,
+        [FromQuery] int page = 0, [FromQuery] int pageSize = 10)
+    {
+        var req = new GetCustomersQuery
+        {
+            Page = page,
+            PageSize = pageSize
+        };
+        
+        var res = await mediator.Send(req, cancellationToken);
+
+        return Results.Ok(CustomersResponse.Create(page, pageSize, res));
     }
 }

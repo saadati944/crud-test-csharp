@@ -1,4 +1,5 @@
 ﻿using Mc2.CrudTest.Application.Commands;
+using Mc2.CrudTest.Application.Dtos;
 using Mc2.CrudTest.Domain.CustomerAggregate;
 
 namespace Mc2.CrudTest.Api.Models;
@@ -32,9 +33,8 @@ public sealed record CustomerResponse(
     string PhoneNumber,
     string EmailAddress,
     string BankAccountNumber)
-
 {
-    public static CustomerResponse CreateFromCustomer(Customer customer)
+    public static CustomerResponse Create(Customer customer)
     {
         return new CustomerResponse(
             customer.ID,
@@ -44,5 +44,25 @@ public sealed record CustomerResponse(
             customer.Email.Address,
             customer.PhoneNumber.NumberString,
             customer.BankAccountNumber);
+    }
+}
+
+
+// This model can inherit from a generic base model but I have only one model
+// so creating a base model is not neccessary
+public sealed record CustomersResponse(
+      int Page,
+      int PageSize,
+      int TotalCount,
+      IEnumerable<CustomerResponse> Records)
+{
+    public static CustomersResponse Create(int page, int pageSize, CustomersDTO customers)
+    {
+        return new CustomersResponse(
+            page,
+            pageSize,
+            customers.Total,
+            customers.Customers.Select(CustomerResponse.Create)
+        );
     }
 }
