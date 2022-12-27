@@ -23,9 +23,22 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Unit
     public Task<Unit> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
     {
         var customer = _customerRepository.GetCustomerByID(request.ID);
-        
+
         if (customer is null)
             throw new CustomerNotFoundException();
+
+        var emailSpec = new HasEmailSpecification(Email.Create(request.EmailAddress).Address);
+        var nameAndDateOfBirthSpec = new HasNameAndDateOfBirthSpecification(request.Firstname, request.Lastname, request.DateOfBirth);
+        
+        // Check email uniqueness
+        if (!customer.Email.Equals(Email.Create(request.EmailAddress))
+                && _customerRepository.GetCustomers(emailSpec, 0, 1).Any())
+            throw new EmailIsNotUniqueException($"There is already a customer with email {request.EmailAddress}");
+
+        // Check (firstname, lastname, dateofbirth) uniqueness
+        if (!customer.PhoneNumber.Equals(PhoneNumber.Create(request.PhoneNumber))
+                && _customerRepository.GetCustomers(nameAndDateOfBirthSpec, 0, 1).Any())
+            throw new CustomerNameAndDateOfBirthIsNotUnique($"There is already a customer with the specified first name, last name and date of birth");
 
         customer.Firstname = request.Firstname;
         customer.Lastname = request.Lastname;
