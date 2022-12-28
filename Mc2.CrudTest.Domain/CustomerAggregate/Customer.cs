@@ -1,6 +1,6 @@
 ﻿namespace Mc2.CrudTest.Domain.CustomerAggregate;
 
-public class Customer
+public partial class Customer
 {
     // There may be an entity in the infrastructure layer which stores the actual data in the database
     // but for simplicity I just use my domain model as an entity.
@@ -94,6 +94,9 @@ public class Customer
 
     public static Customer Create(string firstname, string lastname, DateTime dateOfBirth, string phoneNumber, string email, string bankAccountNumber)
     {
+        if (!IsBankAccountNumberValid().IsMatch(bankAccountNumber))
+            throw new InvalidBankAccountNumberException($"Bank account number '{bankAccountNumber}' is not valid. Account numbers must be in this format: 0000-0000-0000-0000");
+
         var id = Guid.NewGuid();
         var phone = PhoneNumber.Create(phoneNumber);
         var mail = Email.Create(email);
@@ -110,4 +113,7 @@ public class Customer
     {
         Email = Email.Create(email);
     }
+
+    [GeneratedRegex("^(\\d{4}-){3}(\\d{4})$")]
+    private static partial Regex IsBankAccountNumberValid();
 }

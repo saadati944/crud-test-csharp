@@ -4,8 +4,8 @@
 
 Scenario: By using valid information customers should be created successfully 
     Given Following customer informations
-    | firstName | lastName | dateOfBirth | phoneNumber | email        | bankAccountNumbe    |
-    | Ali       | saadati  | 2000/01/02  | +1334252345 | sdt@mail.com | 1234-5342-2344-5234 |
+    | firstName | lastName | dateOfBirth | phoneNumber | email            | bankAccountNumbe    |
+    | Ali       | saadati  | 2000/01/02  | +1334252345 | sdt@mail.com     | 1234-5342-2344-5234 |
     | John      | martin   | 1997/01/02  | +3225234325 | email2@email.com | 6435-1942-9182-9128 |
     When Calling CreateCustomer endpoint
     Then New customers should be created

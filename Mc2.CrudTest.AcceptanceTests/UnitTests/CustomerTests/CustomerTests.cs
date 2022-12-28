@@ -21,7 +21,7 @@ public class CustomerTests
         var birthDate = new DateTime(2000, 05, 06);
         var phoneNumber = "+989142345446";
         var emailAddress = "ali@gmail.com";
-        var bankAccountNumber = "13457890";
+        var bankAccountNumber = "4325-2341-1234-4321";
 
         // Act
         var customer = Customer.Create(firstName, lastName, birthDate, phoneNumber, emailAddress, bankAccountNumber);
