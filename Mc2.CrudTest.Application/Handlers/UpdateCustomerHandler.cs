@@ -1,15 +1,4 @@
-﻿using Mc2.CrudTest.Application.Commands;
-using Mc2.CrudTest.Application.Exceptions;
-using Mc2.CrudTest.Domain.Abstractions;
-using Mc2.CrudTest.Domain.CustomerAggregate;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Mc2.CrudTest.Application.Handlers;
+﻿namespace Mc2.CrudTest.Application.Handlers;
 
 public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Unit>
 {
@@ -20,9 +9,9 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Unit
         _customerRepository = customerRepository;
     }
 
-    public Task<Unit> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
     {
-        var customer = _customerRepository.GetCustomerByID(request.ID);
+        var customer = await _customerRepository.GetCustomerByID(request.ID);
 
         if (customer is null)
             throw new CustomerNotFoundException();
@@ -32,12 +21,12 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Unit
         
         // Check email uniqueness
         if (!customer.Email.Equals(Email.Create(request.EmailAddress))
-                && _customerRepository.GetCustomers(emailSpec, 0, 1).Any())
+                && (await _customerRepository.GetCustomers(emailSpec, 0, 1)).Any())
             throw new EmailIsNotUniqueException($"There is already a customer with email {request.EmailAddress}");
 
         // Check (firstname, lastname, dateofbirth) uniqueness
         if (!customer.PhoneNumber.Equals(PhoneNumber.Create(request.PhoneNumber))
-                && _customerRepository.GetCustomers(nameAndDateOfBirthSpec, 0, 1).Any())
+                && (await _customerRepository.GetCustomers(nameAndDateOfBirthSpec, 0, 1)).Any())
             throw new CustomerNameAndDateOfBirthIsNotUnique($"There is already a customer with the specified first name, last name and date of birth");
 
         customer.Firstname = request.Firstname;
@@ -48,8 +37,8 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Unit
         customer.BankAccountNumber = request.BankAccountNumber;
 
         _customerRepository.UpdateCustomer(customer);
-        _customerRepository.SaveChanges();
+        await _customerRepository.SaveChanges();
 
-        return Task.FromResult(Unit.Value);
+        return Unit.Value;
     }
 }
