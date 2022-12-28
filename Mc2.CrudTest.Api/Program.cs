@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.RegisterDatabase(builder.Configuration.GetConnectionString("CrudTestConnectionString")!);
+builder.Services.RegisterDatabase(builder.Configuration.GetConnectionString("CrudTestConnectionString"));
 builder.Services.RegisterServices();
 builder.Services.RegisterMediatR();
 
