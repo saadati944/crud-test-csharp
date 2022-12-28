@@ -15,6 +15,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="SpecFlow.xunit" Version="3.9.74" />
     <PackageReference Include="testcontainers" Version="2.3.0" />
     <PackageReference Include="xunit.extensibility.core" Version="2.4.2" />
 	  <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -27,6 +28,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Mc2.CrudTest.Api\Mc2.CrudTest.Api.csproj" />
     <ProjectReference Include="..\Mc2.CrudTest.Domain\Mc2.CrudTest.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\" />
   </ItemGroup>
 
 </Project>
