@@ -14,7 +14,7 @@ using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.CommonModels;
 using Xunit;
 
-namespace Mc2.CrudTest.AcceptanceTests.Steps;
+namespace Mc2.CrudTest.AcceptanceTests.BDDTests.Steps;
 
 [Binding]
 public class CustomerCreationSteps : IClassFixture<CustomersWebApiFactory>
@@ -48,7 +48,7 @@ public class CustomerCreationSteps : IClassFixture<CustomersWebApiFactory>
     [When(@"Calling CreateCustomer endpoint")]
     public async Task WhenCallingCreateCustomerEndpoint()
     {
-        _createCustomerEndpointCallResponses = new ();
+        _createCustomerEndpointCallResponses = new();
         foreach (var customer in _customersInformation)
         {
             var response = await _client.PostAsJsonAsync($"Customers", customer);
@@ -63,7 +63,7 @@ public class CustomerCreationSteps : IClassFixture<CustomersWebApiFactory>
     [Then(@"New customers should be created")]
     public void ThenNewCustomerShouldBeCreated()
     {
-        for(int i=0; i< _createCustomerEndpointCallResponses.Count; i++)
+        for (int i = 0; i < _createCustomerEndpointCallResponses.Count; i++)
         {
             var result = _createCustomerEndpointCallResponses[i].Result;
             Assert.Equal(HttpStatusCode.Created, _createCustomerEndpointCallResponses[i].Response.StatusCode);

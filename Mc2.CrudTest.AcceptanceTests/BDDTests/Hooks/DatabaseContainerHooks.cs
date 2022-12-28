@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
-namespace Mc2.CrudTest.AcceptanceTests.Hooks;
+namespace Mc2.CrudTest.AcceptanceTests.BDDTests.Hooks;
 
 [Binding]
 public class DatabaseContainerHooks

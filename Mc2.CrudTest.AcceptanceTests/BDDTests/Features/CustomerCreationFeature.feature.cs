@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Mc2.CrudTest.AcceptanceTests.Features
+namespace Mc2.CrudTest.AcceptanceTests.BDDTests.Features
 {
     using TechTalk.SpecFlow;
     using System;
@@ -40,7 +40,7 @@ namespace Mc2.CrudTest.AcceptanceTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "CustomerCreationFeature", "    The custoemr endpoint should create and persist a new customer", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BDDTests/Features", "CustomerCreationFeature", "    The custoemr endpoint should create and persist a new customer", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,14 +80,14 @@ namespace Mc2.CrudTest.AcceptanceTests.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="By using valid information customer should be created successfully")]
+        [Xunit.SkippableFactAttribute(DisplayName="By using valid information customers should be created successfully")]
         [Xunit.TraitAttribute("FeatureTitle", "CustomerCreationFeature")]
-        [Xunit.TraitAttribute("Description", "By using valid information customer should be created successfully")]
-        public void ByUsingValidInformationCustomerShouldBeCreatedSuccessfully()
+        [Xunit.TraitAttribute("Description", "By using valid information customers should be created successfully")]
+        public void ByUsingValidInformationCustomersShouldBeCreatedSuccessfully()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("By using valid information customer should be created successfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("By using valid information customers should be created successfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -132,14 +132,14 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Customer emails should be unique")]
+        [Xunit.SkippableFactAttribute(DisplayName="Customers emails should be unique")]
         [Xunit.TraitAttribute("FeatureTitle", "CustomerCreationFeature")]
-        [Xunit.TraitAttribute("Description", "Customer emails should be unique")]
-        public void CustomerEmailsShouldBeUnique()
+        [Xunit.TraitAttribute("Description", "Customers emails should be unique")]
+        public void CustomersEmailsShouldBeUnique()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Customer emails should be unique", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Customers emails should be unique", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -239,14 +239,14 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Customer should only be created with valid email address")]
+        [Xunit.SkippableFactAttribute(DisplayName="Customers should only be created with valid email addresses")]
         [Xunit.TraitAttribute("FeatureTitle", "CustomerCreationFeature")]
-        [Xunit.TraitAttribute("Description", "Customer should only be created with valid email address")]
-        public void CustomerShouldOnlyBeCreatedWithValidEmailAddress()
+        [Xunit.TraitAttribute("Description", "Customers should only be created with valid email addresses")]
+        public void CustomersShouldOnlyBeCreatedWithValidEmailAddresses()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Customer should only be created with valid email address", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Customers should only be created with valid email addresses", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 29
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
