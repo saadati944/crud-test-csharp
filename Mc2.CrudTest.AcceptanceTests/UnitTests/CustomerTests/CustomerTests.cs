@@ -10,12 +10,10 @@ namespace Mc2.CrudTest.AcceptanceTests.UnitTests.CustomerTests;
 
 public class CustomerTests
 {
-
-
     // Due to the tight deadline, it is enough to only validate the happy path
-    // but in production, the business related validations must be asserted.
+    // but in production, the business related validations must be checked.
     [Fact]
-    public void Create_With_valid_inputs_Creates_new_customer_instance()
+    public void Create_Creates_new_customer_instance_With_valid_inputs()
     {
         // Arrange
         var firstName = "some first name";

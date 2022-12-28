@@ -13,7 +13,7 @@ public class PhoneNumberTests
     [Theory]
     [InlineData("+989359435465")]
     [InlineData("+123454634232")]
-    public void Create_With_a_valid_phone_number_Creates_a_new_instance(string validNumber)
+    public void Create_Creates_a_new_instance_With_a_valid_phone_number(string validNumber)
     {
         // Act
         var phone = PhoneNumber.Create(validNumber);
@@ -29,7 +29,7 @@ public class PhoneNumberTests
     [InlineData("+222")] // short number
     [InlineData("+542d344325436")] // contains non-digit chars
     [InlineData("asdf")] // bad format
-    public void Create_With_an_invalid_phone_number_Throws_InvalidPhoneNumberException(string invalidNumber)
+    public void Create_Throws_InvalidPhoneNumberException_With_an_invalid_phone_number_Throws(string invalidNumber)
     {
         // Act
         var sut = () => { PhoneNumber.Create(invalidNumber); };
