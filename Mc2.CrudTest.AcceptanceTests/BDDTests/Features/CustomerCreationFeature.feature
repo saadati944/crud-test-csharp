@@ -36,4 +36,11 @@ Scenario: Customers should only be created with valid email addresses
     When Calling CreateCustomer endpoint
     Then Only first customer should be created
 
+Scenario: Delete customer endpoint should delete customer from database
+    Given Following customer informations
+    | firstName | lastName | dateOfBirth | phoneNumber | email            | bankAccountNumbe    |
+    | John      | martin   | 1997/01/02  | +1334252345 | email1@email.com | 1234-5342-2344-5234 |
+    When Calling CreateCustomer endpoint
+    And Calling DeleteCustomer endpoint
+    Then There should not be any customers in the database
 # Other behavioural tests can be added here ...

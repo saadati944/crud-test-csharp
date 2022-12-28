@@ -305,6 +305,54 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.SkippableFactAttribute(DisplayName="Delete customer endpoint should delete customer from database")]
+        [Xunit.TraitAttribute("FeatureTitle", "CustomerCreationFeature")]
+        [Xunit.TraitAttribute("Description", "Delete customer endpoint should delete customer from database")]
+        public void DeleteCustomerEndpointShouldDeleteCustomerFromDatabase()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete customer endpoint should delete customer from database", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 39
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                            "firstName",
+                            "lastName",
+                            "dateOfBirth",
+                            "phoneNumber",
+                            "email",
+                            "bankAccountNumbe"});
+                table5.AddRow(new string[] {
+                            "John",
+                            "martin",
+                            "1997/01/02",
+                            "+1334252345",
+                            "email1@email.com",
+                            "1234-5342-2344-5234"});
+#line 40
+    testRunner.Given("Following customer informations", ((string)(null)), table5, "Given ");
+#line hidden
+#line 43
+    testRunner.When("Calling CreateCustomer endpoint", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 44
+    testRunner.And("Calling DeleteCustomer endpoint", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 45
+    testRunner.Then("There should not be any customers in the database", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable
