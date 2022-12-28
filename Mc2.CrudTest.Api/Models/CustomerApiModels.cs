@@ -1,8 +1,4 @@
-﻿using Mc2.CrudTest.Application.Commands;
-using Mc2.CrudTest.Application.Dtos;
-using Mc2.CrudTest.Domain.CustomerAggregate;
-
-namespace Mc2.CrudTest.Api.Models;
+﻿namespace Mc2.CrudTest.Api.Models;
 
 public sealed record CreateCustomerRequest(
     string FirstName,
@@ -48,7 +44,7 @@ public sealed record CustomerResponse(
     }
 }
 
-// This model can inherit from a generic base model but I have only one model
+// This model can inherit from a generic base PaginatedModel but I have only one model
 // so creating a base model is not neccessary
 public sealed record CustomersResponse(
       int Page,
