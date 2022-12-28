@@ -1,11 +1,4 @@
-﻿using Mc2.CrudTest.Domain.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using System.Text.RegularExpressions;
 
 namespace Mc2.CrudTest.Domain.CustomerAggregate;
 

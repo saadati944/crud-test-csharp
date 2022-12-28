@@ -42,7 +42,7 @@ public sealed record CustomerResponse(
             customer.Firstname,
             customer.Lastname,
             customer.DateOfBirth,
-            customer.PhoneNumber.NumberString,
+            customer.PhoneNumber.NumberAsString,
             customer.Email.Address,
             customer.BankAccountNumber);
     }

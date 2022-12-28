@@ -1,18 +1,11 @@
-﻿using Mc2.CrudTest.Domain.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Mc2.CrudTest.Domain.CustomerAggregate;
 
 public partial class PhoneNumber : ValueObject
 {
     public ulong Number { get; init; }
-    public string NumberString => "+" + Number.ToString();
+    public string NumberAsString => "+" + Number.ToString();
 
     private PhoneNumber()
     {

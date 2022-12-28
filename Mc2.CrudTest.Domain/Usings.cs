@@ -1,0 +1,1 @@
+﻿global using Mc2.CrudTest.Domain.Abstractions;
