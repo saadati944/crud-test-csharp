@@ -46,4 +46,27 @@ public class CreateCustomerTests : IClassFixture<CustomersWebApiFactory>
         Assert.Equal(customer.EmailAddress, result.EmailAddress);
         Assert.Equal(customer.BankAccountNumber, result.BankAccountNumber);
     }
+
+
+    [Theory]
+    [InlineData("1234 1234 1234 1234")]
+    [InlineData("1234567890")]
+    public async Task Create_customer_With_invalid_bank_account_number_Returns_badrequest(string invalidAccountNumber)
+    {
+        // Arrange
+        var customer = new CreateCustomerRequest(
+            "customerName123",
+            "customerLastName123",
+            DateTime.Parse("2020-12-27T16:38:30.388"),
+            "+101010101",
+            "customer_123@gnirts",
+            invalidAccountNumber
+        );
+
+        // Act
+        var response = await _client.PostAsJsonAsync($"Customers", customer);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
 }

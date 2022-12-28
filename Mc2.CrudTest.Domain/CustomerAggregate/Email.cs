@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Mc2.CrudTest.Domain.CustomerAggregate;
+﻿namespace Mc2.CrudTest.Domain.CustomerAggregate;
 
 public partial class Email : ValueObject
 {
