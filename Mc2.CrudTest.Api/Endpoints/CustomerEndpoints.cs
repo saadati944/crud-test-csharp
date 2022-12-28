@@ -1,12 +1,4 @@
-﻿using Mc2.CrudTest.Api.Models;
-using Mc2.CrudTest.Application.Commands;
-using Mc2.CrudTest.Application.Exceptions;
-using Mc2.CrudTest.Application.Queries;
-using Mc2.CrudTest.Domain.Abstractions;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Mc2.CrudTest.Api.Endpoints;
+﻿namespace Mc2.CrudTest.Api.Endpoints;
 
 public static class CustomerEndpoints
 {

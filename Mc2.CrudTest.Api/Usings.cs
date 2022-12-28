@@ -1,0 +1,9 @@
+﻿global using MediatR;
+global using Microsoft.AspNetCore.Mvc;
+global using Mc2.CrudTest.Api.Models;
+global using Mc2.CrudTest.Application.Dtos;
+global using Mc2.CrudTest.Application.Queries;
+global using Mc2.CrudTest.Application.Commands;
+global using Mc2.CrudTest.Application.Exceptions;
+global using Mc2.CrudTest.Domain.Abstractions;
+global using Mc2.CrudTest.Domain.CustomerAggregate;
