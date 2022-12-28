@@ -19,7 +19,7 @@ public class PhoneNumberTests
         var phone = PhoneNumber.Create(validNumber);
 
         // Assert
-        Assert.Equal(validNumber, phone.NumberString);
+        Assert.Equal(validNumber, phone.NumberAsString);
     }
 
     [Theory]
