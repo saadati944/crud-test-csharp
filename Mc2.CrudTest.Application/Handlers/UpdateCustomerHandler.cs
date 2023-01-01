@@ -1,12 +1,16 @@
-﻿namespace Mc2.CrudTest.Application.Handlers;
+﻿using Mc2.CrudTest.Domain.Abstractions.Services;
+
+namespace Mc2.CrudTest.Application.Handlers;
 
 public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Unit>
 {
     private readonly ICustomerRepository _customerRepository;
+    private readonly IPhoneNumberParser _numberParser;
 
-    public UpdateCustomerHandler(ICustomerRepository customerRepository)
+    public UpdateCustomerHandler(ICustomerRepository customerRepository, IPhoneNumberParser numberParser)
     {
         _customerRepository = customerRepository;
+        _numberParser = numberParser;
     }
 
     public async Task<Unit> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
@@ -25,14 +29,13 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Unit
             throw new EmailIsNotUniqueException($"There is already a customer with email {request.EmailAddress}");
 
         // Check (firstname, lastname, dateofbirth) uniqueness
-        if (!customer.PhoneNumber.Equals(PhoneNumber.Create(request.PhoneNumber))
-                && (await _customerRepository.GetCustomers(nameAndDateOfBirthSpec, 0, 1)).Any())
+        if ((await _customerRepository.GetCustomers(nameAndDateOfBirthSpec, 0, 1)).Any())
             throw new CustomerNameAndDateOfBirthIsNotUnique($"There is already a customer with the specified first name, last name and date of birth");
 
         customer.Firstname = request.Firstname;
         customer.Lastname = request.Lastname;
         customer.DateOfBirth = request.DateOfBirth;
-        customer.SetPhoneNumber(request.PhoneNumber);
+        customer.SetPhoneNumber(request.PhoneNumber, _numberParser);
         customer.SetEmail(request.EmailAddress);
         customer.BankAccountNumber = request.BankAccountNumber;
 

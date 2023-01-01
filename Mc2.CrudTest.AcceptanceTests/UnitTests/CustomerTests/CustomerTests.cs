@@ -1,9 +1,6 @@
 ﻿using Mc2.CrudTest.Domain.CustomerAggregate;
+using Mc2.CrudTest.Infrastructure.Service;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Mc2.CrudTest.AcceptanceTests.UnitTests.CustomerTests;
@@ -19,18 +16,20 @@ public class CustomerTests
         var firstName = "some first name";
         var lastName = "some last name";
         var birthDate = new DateTime(2000, 05, 06);
-        var phoneNumber = "+989142345446";
+        var phoneNumber = "+98 914 234 5446";
+        var parsedPhoneNumber = "+9809142345446";
         var emailAddress = "ali@gmail.com";
         var bankAccountNumber = "4325-2341-1234-4321";
+        var numberParser = new PhoneNumberParser();
 
         // Act
-        var customer = Customer.Create(firstName, lastName, birthDate, phoneNumber, emailAddress, bankAccountNumber);
+        var customer = Customer.Create(firstName, lastName, birthDate, phoneNumber, emailAddress, bankAccountNumber, numberParser);
 
         // Assert
         Assert.Equal(firstName, customer.Firstname);
         Assert.Equal(lastName, customer.Lastname);
         Assert.Equal(birthDate, customer.DateOfBirth);
-        Assert.Equal(phoneNumber, customer.PhoneNumber.NumberAsString);
+        Assert.Equal(parsedPhoneNumber, customer.PhoneNumber.NumberAsString);
         Assert.Equal(emailAddress, customer.Email.Address);
         Assert.Equal(bankAccountNumber, customer.BankAccountNumber);
     }
