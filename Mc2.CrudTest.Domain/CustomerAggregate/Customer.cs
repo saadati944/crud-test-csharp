@@ -92,21 +92,21 @@ public partial class Customer
         BankAccountNumber = bankAccountNumber;
     }
 
-    public static Customer Create(string firstname, string lastname, DateTime dateOfBirth, string phoneNumber, string email, string bankAccountNumber)
+    public static Customer Create(string firstname, string lastname, DateTime dateOfBirth, string phoneNumber, string email, string bankAccountNumber, IPhoneNumberParser numberParser)
     {
         if (!IsBankAccountNumberValid().IsMatch(bankAccountNumber))
             throw new InvalidBankAccountNumberException($"Bank account number '{bankAccountNumber}' is not valid. Account numbers must be in this format: 0000-0000-0000-0000");
 
         var id = Guid.NewGuid();
-        var phone = PhoneNumber.Create(phoneNumber);
+        var phone = PhoneNumber.Create(phoneNumber, numberParser);
         var mail = Email.Create(email);
 
         return new Customer(id, firstname, lastname, dateOfBirth, phone, mail, bankAccountNumber);
     }
 
-    public void SetPhoneNumber(string phoneNumber)
+    public void SetPhoneNumber(string phoneNumber, IPhoneNumberParser numberParser)
     {
-        PhoneNumber = PhoneNumber.Create(phoneNumber);
+        PhoneNumber = PhoneNumber.Create(phoneNumber, numberParser);
     }
 
     public void SetEmail(string email)

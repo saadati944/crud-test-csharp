@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mc2.CrudTest.Infrastructure.Service;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Mc2.CrudTest.Infrastructure;
@@ -13,5 +14,6 @@ public static class ServiceRegistry
     public static void RegisterServices(this IServiceCollection services)
     {
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddTransient<IPhoneNumberParser, PhoneNumberParser>();
     }
 }
