@@ -11,7 +11,7 @@ namespace Mc2.CrudTest.AcceptanceTests.BDDTests.Hooks;
 [Binding]
 public class DatabaseContainerHooks
 {
-    private static CustomersWebApiFactory _customersWebApiFactory;
+    private CustomersWebApiFactory _customersWebApiFactory;
     private IObjectContainer _objectContainer;
 
     public DatabaseContainerHooks(IObjectContainer container)
@@ -28,7 +28,7 @@ public class DatabaseContainerHooks
     }
 
     [AfterScenario]
-    public static async Task DisposeDatabaseContainer()
+    public async Task DisposeDatabaseContainer()
     {
         await _customersWebApiFactory.DisposeAsync();
     }

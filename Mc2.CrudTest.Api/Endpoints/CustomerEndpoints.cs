@@ -47,17 +47,29 @@ public static class CustomerEndpoints
     private static async Task<IResult> GetCustomers(
         [FromServices] IMediator mediator,
         CancellationToken cancellationToken,
-        [FromQuery] int page = 0, [FromQuery] int pageSize = 10)
+        [FromQuery] int Page = 0,
+        [FromQuery] int PageSize = 10,
+        [FromQuery] string FirstName = null,
+        [FromQuery] string LastName = null,
+        [FromQuery] DateTime? DateOfBirth = null,
+        [FromQuery] string Email = null,
+        [FromQuery] string PhoneNumber = null,
+        [FromQuery] string BankAccountNumber = null)
     {
-        var req = new GetCustomersQuery
-        {
-            Page = page,
-            PageSize = pageSize
-        };
-        
+        var req = GetCustomersQuery.CreateWithParameters(
+            Page,
+            PageSize,
+            FirstName,
+            LastName,
+            DateOfBirth,
+            Email,
+            PhoneNumber,
+            BankAccountNumber
+        );
+
         var res = await mediator.Send(req, cancellationToken);
 
-        return Results.Ok(CustomersResponse.Create(page, pageSize, res));
+        return Results.Ok(CustomersResponse.Create(Page, PageSize, res));
     }
 
     private static async Task<IResult> UpdateCustomer([FromRoute] Guid id, [FromBody] UpdateCustomerRequest customer,

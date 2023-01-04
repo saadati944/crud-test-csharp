@@ -5,7 +5,7 @@ public sealed record CreateCustomerRequest(
     string LastName,
     DateTime DateOfBirth,
     string PhoneNumber,
-    string EmailAddress,
+    string Email,
     string BankAccountNumber)
 {
     public CreateCustomerCommand MapToCreateCustomerCommand()
@@ -15,7 +15,7 @@ public sealed record CreateCustomerRequest(
             Firstname = this.FirstName,
             Lastname = this.LastName,
             DateOfBirth = this.DateOfBirth,
-            EmailAddress = this.EmailAddress,
+            EmailAddress = this.Email,
             PhoneNumber = this.PhoneNumber,
             BankAccountNumber = this.BankAccountNumber,
         };
@@ -28,7 +28,7 @@ public sealed record CustomerResponse(
     string LastName,
     DateTime DateOfBirth,
     string PhoneNumber,
-    string EmailAddress,
+    string Email,
     string BankAccountNumber)
 {
     public static CustomerResponse Create(Customer customer)
@@ -68,7 +68,7 @@ public sealed record UpdateCustomerRequest(
     string LastName,
     DateTime DateOfBirth,
     string PhoneNumber,
-    string EmailAddress,
+    string Email,
     string BankAccountNumber)
 {
     public UpdateCustomerCommand MapToUpdateCustomerCommand()
@@ -78,9 +78,17 @@ public sealed record UpdateCustomerRequest(
             Firstname = this.FirstName,
             Lastname = this.LastName,
             DateOfBirth = this.DateOfBirth,
-            EmailAddress = this.EmailAddress,
+            EmailAddress = this.Email,
             PhoneNumber = this.PhoneNumber,
             BankAccountNumber = this.BankAccountNumber,
         };
     }
 }
+
+//public sealed record FilterCustomerRequest(
+//    string FirstName,
+//    string LastName,
+//    DateTime DateOfBirth,
+//    string PhoneNumber,
+//    string Email,
+//    string BankAccountNumber);
