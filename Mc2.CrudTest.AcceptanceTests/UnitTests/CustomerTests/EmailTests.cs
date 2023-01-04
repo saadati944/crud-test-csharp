@@ -19,7 +19,7 @@ public class EmailTests
         var mail = Email.Create(validEmail);
 
         // Assert
-        Assert.Equal(validEmail, mail.Address);
+        Assert.Equal(validEmail.ToLower(), mail.Address);
     }
 
     [Theory]

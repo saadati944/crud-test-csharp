@@ -84,11 +84,11 @@ public class CustomerCreationSteps : IClassFixture<CustomersWebApiFactory>
         {
             var result = _createCustomerEndpointCallResponses[i].Result;
             Assert.Equal(HttpStatusCode.Created, _createCustomerEndpointCallResponses[i].Response.StatusCode);
-            Assert.Equal(_customersInformation[i].FirstName, result.FirstName);
-            Assert.Equal(_customersInformation[i].LastName, result.LastName);
+            Assert.Equal(_customersInformation[i].FirstName.ToLower(), result.FirstName);
+            Assert.Equal(_customersInformation[i].LastName.ToLower(), result.LastName);
             Assert.Equal(_customersInformation[i].DateOfBirth, result.DateOfBirth);
             Assert.Equal(_customersInformation[i].PhoneNumber, result.PhoneNumber);
-            Assert.Equal(_customersInformation[i].EmailAddress, result.EmailAddress);
+            Assert.Equal(_customersInformation[i].EmailAddress.ToLower(), result.EmailAddress);
             Assert.Equal(_customersInformation[i].BankAccountNumber, result.BankAccountNumber);
         }
     }
@@ -102,11 +102,11 @@ public class CustomerCreationSteps : IClassFixture<CustomersWebApiFactory>
             if (i == 0)
             {
                 Assert.Equal(HttpStatusCode.Created, _createCustomerEndpointCallResponses[i].Response.StatusCode);
-                Assert.Equal(_customersInformation[i].FirstName, result.FirstName);
-                Assert.Equal(_customersInformation[i].LastName, result.LastName);
+                Assert.Equal(_customersInformation[i].FirstName.ToLower(), result.FirstName);
+                Assert.Equal(_customersInformation[i].LastName.ToLower(), result.LastName);
                 Assert.Equal(_customersInformation[i].DateOfBirth, result.DateOfBirth);
                 Assert.Equal(_customersInformation[i].PhoneNumber, result.PhoneNumber);
-                Assert.Equal(_customersInformation[i].EmailAddress, result.EmailAddress);
+                Assert.Equal(_customersInformation[i].EmailAddress.ToLower(), result.EmailAddress);
                 Assert.Equal(_customersInformation[i].BankAccountNumber, result.BankAccountNumber);
             }
             else

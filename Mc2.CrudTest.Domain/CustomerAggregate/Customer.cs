@@ -101,6 +101,9 @@ public partial class Customer
         var phone = PhoneNumber.Create(phoneNumber, numberParser);
         var mail = Email.Create(email);
 
+        firstname = firstname.ToLower();
+        lastname = lastname.ToLower();
+
         return new Customer(id, firstname, lastname, dateOfBirth, phone, mail, bankAccountNumber);
     }
 

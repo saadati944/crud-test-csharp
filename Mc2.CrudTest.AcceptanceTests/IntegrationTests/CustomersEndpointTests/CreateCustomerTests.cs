@@ -39,11 +39,11 @@ public class CreateCustomerTests : IClassFixture<CustomersWebApiFactory>
 
         // Assert
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
-        Assert.Equal(customer.FirstName, result.FirstName);
-        Assert.Equal(customer.LastName, result.LastName);
+        Assert.Equal(customer.FirstName.ToLower(), result.FirstName);
+        Assert.Equal(customer.LastName.ToLower(), result.LastName);
         Assert.Equal(customer.DateOfBirth, result.DateOfBirth);
         Assert.Equal(customer.PhoneNumber, result.PhoneNumber);
-        Assert.Equal(customer.EmailAddress, result.EmailAddress);
+        Assert.Equal(customer.EmailAddress.ToLower(), result.EmailAddress);
         Assert.Equal(customer.BankAccountNumber, result.BankAccountNumber);
     }
 
