@@ -13,16 +13,16 @@ public class PhoneNumberParser : IPhoneNumberParser
             var parsedNumber = phoneNumberUtils.Parse(number, null);
             
             if(parsedNumber is null || !parsedNumber.HasNationalNumber || !parsedNumber.HasCountryCode)
-                throw new InvalidPhoneNumberException($"The entered number '{number}' does not have correct format.");
+                throw new InvalidPhoneNumberException();
 
             return ulong.Parse(phoneNumberUtils.Format(parsedNumber, PhoneNumberFormat.E164)[1..]);
         }
-        catch(NumberParseException ex)
+        catch(NumberParseException)
         {
             // Because we don't have any kind of i18n and exception messages
             // are not part of our business, there is no need to translate the
             // error messages of Google phone lib to our own error messages
-            throw new InvalidPhoneNumberException(ex.Message);
+            throw new InvalidPhoneNumberException();
         }
     }
 }

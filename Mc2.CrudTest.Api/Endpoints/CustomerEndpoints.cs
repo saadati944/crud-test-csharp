@@ -29,7 +29,7 @@ public static class CustomerEndpoints
         }
         catch(BaseException ex)
         {
-            return Results.Problem(ex.Message, statusCode: 400);
+            return Results.BadRequest(ErrorResponse.CreateFromException(ex));
         }
     }
 
@@ -79,7 +79,7 @@ public static class CustomerEndpoints
         }
         catch (BaseException ex)
         {
-            return Results.Problem(ex.Message, statusCode: 400);
+            return Results.BadRequest(ErrorResponse.CreateFromException(ex));
         }
     }
 

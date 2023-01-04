@@ -17,15 +17,15 @@ public partial class Email : ValueObject
     public static Email Create(string address)
     {
         if (string.IsNullOrEmpty(address))
-            throw new InvalidEmailException($"Empty address is not valid");
+            throw new InvalidEmailException();
 
         if (address.Length > 200)
-            throw new InvalidEmailException($"The length of the address can not be more than 200 characters");
+            throw new InvalidEmailException();
 
         address = address.ToLower();
 
         if (!IsEmailValid().IsMatch(address))
-            throw new InvalidEmailException($"Email address '{address}' is not valid");
+            throw new InvalidEmailException();
 
         return new Email(address);
     }
