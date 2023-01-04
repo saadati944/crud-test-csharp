@@ -111,14 +111,14 @@ this.ScenarioInitialize(scenarioInfo);
                             "2000/01/02",
                             "+1334252345",
                             "sdt@mail.com",
-                            "1234-5342-2344-5234"});
+                            "IR13234923456374234234234"});
                 table1.AddRow(new string[] {
                             "John",
                             "martin",
                             "1997/01/02",
                             "+3225234325",
                             "email2@email.com",
-                            "6435-1942-9182-9128"});
+                            "IR000000000000001"});
 #line 6
     testRunner.Given("Following customer informations", ((string)(null)), table1, "Given ");
 #line hidden
@@ -163,14 +163,14 @@ this.ScenarioInitialize(scenarioInfo);
                             "2000/01/02",
                             "+1334252345",
                             "same@email.com",
-                            "1234-5342-2344-5234"});
+                            "IR13234923456374234234234"});
                 table2.AddRow(new string[] {
                             "John",
                             "martin",
                             "1997/01/02",
                             "+3225234325",
                             "same@email.com",
-                            "6435-1942-9182-9128"});
+                            "IR000000000000001"});
 #line 14
     testRunner.Given("Following customer informations", ((string)(null)), table2, "Given ");
 #line hidden
@@ -218,14 +218,14 @@ this.ScenarioInitialize(scenarioInfo);
                             "1997/01/02",
                             "+1334252345",
                             "email1@email.com",
-                            "1234-5342-2344-5234"});
+                            "IR13234923456374234234234"});
                 table3.AddRow(new string[] {
                             "John",
                             "martin",
                             "1997/01/02",
                             "+3225234325",
                             "email2@email.com",
-                            "6435-1942-9182-9128"});
+                            "IR000000000000001"});
 #line 22
     testRunner.Given("Following customer informations", ((string)(null)), table3, "Given ");
 #line hidden
@@ -270,28 +270,28 @@ this.ScenarioInitialize(scenarioInfo);
                             "1997/01/02",
                             "+6923049235",
                             "valid@email.com",
-                            "1234-5342-2344-5234"});
+                            "IR13234923456374234234234"});
                 table4.AddRow(new string[] {
                             "name2",
                             "lname2",
                             "1998/01/02",
                             "+2342805394",
                             "",
-                            "6435-1942-9182-9128"});
+                            "IR000000000000001"});
                 table4.AddRow(new string[] {
                             "name3",
                             "lname3",
                             "1999/01/02",
                             "+6734572465",
                             "email2$email.com",
-                            "6435-1942-9182-9128"});
+                            "IR000000000000001"});
                 table4.AddRow(new string[] {
                             "name4",
                             "lname4",
                             "2000/01/02",
                             "+6356235235",
                             "invalidEmail.com",
-                            "6435-1942-9182-9128"});
+                            "IR000000000000001"});
 #line 30
     testRunner.Given("Following customer informations", ((string)(null)), table4, "Given ");
 #line hidden
@@ -336,7 +336,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "1997/01/02",
                             "+1334252345",
                             "email1@email.com",
-                            "1234-5342-2344-5234"});
+                            "IR13234923456374234234234"});
 #line 40
     testRunner.Given("Following customer informations", ((string)(null)), table5, "Given ");
 #line hidden

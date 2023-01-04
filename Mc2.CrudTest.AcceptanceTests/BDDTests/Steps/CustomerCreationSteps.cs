@@ -89,7 +89,7 @@ public class CustomerCreationSteps : IClassFixture<CustomersWebApiFactory>
             Assert.Equal(_customersInformation[i].DateOfBirth, result.DateOfBirth);
             Assert.Equal(_customersInformation[i].PhoneNumber, result.PhoneNumber);
             Assert.Equal(_customersInformation[i].EmailAddress.ToLower(), result.EmailAddress);
-            Assert.Equal(_customersInformation[i].BankAccountNumber, result.BankAccountNumber);
+            Assert.Equal(_customersInformation[i].BankAccountNumber.ToUpper(), result.BankAccountNumber);
         }
     }
 
@@ -107,7 +107,7 @@ public class CustomerCreationSteps : IClassFixture<CustomersWebApiFactory>
                 Assert.Equal(_customersInformation[i].DateOfBirth, result.DateOfBirth);
                 Assert.Equal(_customersInformation[i].PhoneNumber, result.PhoneNumber);
                 Assert.Equal(_customersInformation[i].EmailAddress.ToLower(), result.EmailAddress);
-                Assert.Equal(_customersInformation[i].BankAccountNumber, result.BankAccountNumber);
+                Assert.Equal(_customersInformation[i].BankAccountNumber.ToUpper(), result.BankAccountNumber);
             }
             else
             {
