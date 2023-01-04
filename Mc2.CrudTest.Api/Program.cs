@@ -1,6 +1,7 @@
 using Mc2.CrudTest.Api.Endpoints;
 using Mc2.CrudTest.Application;
 using Mc2.CrudTest.Infrastructure;
+using Mc2.CrudTest.Infrastructure.Data;
 using Microsoft.AspNetCore.Diagnostics;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -34,5 +35,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapCustomerEndpoints();
+
+await app.Services.CreateScope().ServiceProvider.GetRequiredService<CrudTestsContext>().Database.EnsureCreatedAsync();
 
 app.Run();
