@@ -30,7 +30,7 @@ public class CreateCustomerTests : IClassFixture<CustomersWebApiFactory>
             DateTime.Parse("2020-12-27T16:38:30.388"),
             "+101010101",
             "customer_123@gnirts",
-            "1234-5678-9012-3456"
+            "IR006000500400301"
         );
 
         // Act
@@ -44,7 +44,7 @@ public class CreateCustomerTests : IClassFixture<CustomersWebApiFactory>
         Assert.Equal(customer.DateOfBirth, result.DateOfBirth);
         Assert.Equal(customer.PhoneNumber, result.PhoneNumber);
         Assert.Equal(customer.EmailAddress.ToLower(), result.EmailAddress);
-        Assert.Equal(customer.BankAccountNumber, result.BankAccountNumber);
+        Assert.Equal(customer.BankAccountNumber.ToUpper(), result.BankAccountNumber);
     }
 
 

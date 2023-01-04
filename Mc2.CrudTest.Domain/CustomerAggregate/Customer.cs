@@ -94,6 +94,10 @@ public partial class Customer
 
     public static Customer Create(string firstname, string lastname, DateTime dateOfBirth, string phoneNumber, string email, string bankAccountNumber, IPhoneNumberParser numberParser)
     {
+        if (string.IsNullOrWhiteSpace(bankAccountNumber) || bankAccountNumber.Length > 34)
+            throw new InvalidBankAccountNumberException("");
+
+        bankAccountNumber = bankAccountNumber.ToUpper();
         if (!IsBankAccountNumberValid().IsMatch(bankAccountNumber))
             throw new InvalidBankAccountNumberException($"Bank account number '{bankAccountNumber}' is not valid. Account numbers must be in this format: 0000-0000-0000-0000");
 
@@ -117,6 +121,6 @@ public partial class Customer
         Email = Email.Create(email);
     }
 
-    [GeneratedRegex("^(\\d{4}-){3}(\\d{4})$")]
+    [GeneratedRegex("[A-Z]{2}[0-9]{2}[A-Z0-9]{4}[0-9]{7}([A-Z0-9]?){0,16}")]
     private static partial Regex IsBankAccountNumberValid();
 }

@@ -19,7 +19,7 @@ public class CustomerTests
         var phoneNumber = "+98 914 234 5446";
         var parsedPhoneNumber = "+989142345446";
         var emailAddress = "ali@gmail.com";
-        var bankAccountNumber = "4325-2341-1234-4321";
+        var bankAccountNumber = "ir13234923456374234234234";
         var numberParser = new PhoneNumberParser();
 
         // Act
@@ -31,6 +31,6 @@ public class CustomerTests
         Assert.Equal(birthDate, customer.DateOfBirth);
         Assert.Equal(parsedPhoneNumber, customer.PhoneNumber.NumberAsString);
         Assert.Equal(emailAddress.ToLower(), customer.Email.Address);
-        Assert.Equal(bankAccountNumber, customer.BankAccountNumber);
+        Assert.Equal(bankAccountNumber.ToUpper(), customer.BankAccountNumber);
     }
 }
