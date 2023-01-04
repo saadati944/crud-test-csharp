@@ -15,24 +15,7 @@ public class PhoneNumberParser : IPhoneNumberParser
             if(parsedNumber is null || !parsedNumber.HasNationalNumber || !parsedNumber.HasCountryCode)
                 throw new InvalidPhoneNumberException($"The entered number '{number}' does not have correct format.");
 
-            // Concatinate CountryCode and NationalNumber
-            ulong temp = parsedNumber.NationalNumber;
-            int nationalNumberDigitsCount = parsedNumber.NumberOfLeadingZeros; ;
-            while (temp > 0)
-            {
-                temp /= 10;
-                nationalNumberDigitsCount++;
-            }
-
-            ulong finalNumber = (ulong)parsedNumber.CountryCode;
-            while (nationalNumberDigitsCount > 0)
-            {
-                finalNumber *= 10;
-                nationalNumberDigitsCount--;
-            }
-            finalNumber += parsedNumber.NationalNumber;
-
-            return finalNumber;
+            return ulong.Parse(phoneNumberUtils.Format(parsedNumber, PhoneNumberFormat.E164)[1..]);
         }
         catch(NumberParseException ex)
         {

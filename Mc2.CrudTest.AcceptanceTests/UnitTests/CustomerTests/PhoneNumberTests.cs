@@ -7,18 +7,18 @@ namespace Mc2.CrudTest.AcceptanceTests.UnitTests.CustomerTests;
 public class PhoneNumberTests
 {
     [Theory]
-    [InlineData("+989359435465", "+9809359435465")]
-    [InlineData("+123454634232", "+1023454634232")]
-    public void Create_Creates_a_new_instance_With_a_valid_phone_number(string parsableNumber, string parsedNumber)
+    [InlineData("+989359435465")]
+    [InlineData("+123454634232")]
+    public void Create_Creates_a_new_instance_With_a_valid_phone_number(string validNumber)
     {
         // Arrange
         var numberParser = new PhoneNumberParser();
 
         // Act
-        var phone = PhoneNumber.Create(parsableNumber, numberParser);
+        var phone = PhoneNumber.Create(validNumber, numberParser);
 
         // Assert
-        Assert.Equal(parsedNumber, phone.NumberAsString);
+        Assert.Equal(validNumber, phone.NumberAsString);
     }
 
     [Theory]

@@ -22,6 +22,8 @@ public partial class Email : ValueObject
         if (address.Length > 200)
             throw new InvalidEmailException($"The length of the address can not be more than 200 characters");
 
+        address = address.ToLower();
+
         if (!IsEmailValid().IsMatch(address))
             throw new InvalidEmailException($"Email address '{address}' is not valid");
 
