@@ -1,14 +1,22 @@
-version: "3.2"
+version: '3.4'
 
 volumes:
   crud_test_data:
 
 services:
+  mc2.crudtest.api:
+    image: ${DOCKER_REGISTRY-}mc2crudtestapi
+    build:
+      context: .
+      dockerfile: Mc2.CrudTest.Api/Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - crud-test-sql-server
+
   crud-test-sql-server:
     container_name: crud-test-sql-server
     image: mcr.microsoft.com/mssql/server:2019-latest
-    ports:
-      - "1433:1433"
     volumes:
       - crud_test_data:/var/opt/mssql
     environment:
