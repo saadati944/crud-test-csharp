@@ -107,16 +107,15 @@ namespace Mc2.CrudTest.AcceptanceTests.BDDTests.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Create Read Edit Delete Customer", Skip="Ignored")]
+        [Xunit.SkippableFactAttribute(DisplayName="Create Read Edit Delete Customer")]
         [Xunit.TraitAttribute("FeatureTitle", "Create Read Edit Delete Customer")]
         [Xunit.TraitAttribute("Description", "Create Read Edit Delete Customer")]
         public void CreateReadEditDeleteCustomer()
         {
-            string[] tagsOfScenario = new string[] {
-                    "ignore"};
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create Read Edit Delete Customer", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 13
+#line 12
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -143,7 +142,7 @@ namespace Mc2.CrudTest.AcceptanceTests.BDDTests.Features
                             "+989121234567",
                             "01-JAN-2000",
                             "IR000000000000001"});
-#line 14
+#line 13
         testRunner.When("user creates a customer with following data by sending \'Create Customer Command\'", ((string)(null)), table7, "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
@@ -160,7 +159,7 @@ namespace Mc2.CrudTest.AcceptanceTests.BDDTests.Features
                             "+989121234567",
                             "01-JAN-2000",
                             "IR000000000000001"});
-#line 17
+#line 16
         testRunner.Then("user can lookup all customers and filter by below properties and get \"1\" records", ((string)(null)), table8, "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
@@ -177,10 +176,10 @@ namespace Mc2.CrudTest.AcceptanceTests.BDDTests.Features
                             "+989121234567",
                             "01-JAN-2000",
                             "IR000000000000001"});
-#line 20
+#line 19
         testRunner.When("user creates a customer with following data by sending \'Create Customer Command\'", ((string)(null)), table9, "When ");
 #line hidden
-#line 23
+#line 22
         testRunner.Then("user must receive error code of \"201\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
@@ -197,7 +196,7 @@ namespace Mc2.CrudTest.AcceptanceTests.BDDTests.Features
                             "+3161234567",
                             "01-FEB-2010",
                             "IR000000000000002"});
-#line 24
+#line 23
         testRunner.When("user edit customer with new data", ((string)(null)), table10, "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
@@ -214,7 +213,7 @@ namespace Mc2.CrudTest.AcceptanceTests.BDDTests.Features
                             "+989121234567",
                             "01-JAN-2000",
                             "IR000000000000001"});
-#line 27
+#line 26
         testRunner.Then("user can lookup all customers and filter by below properties and get \"0\" records", ((string)(null)), table11, "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
@@ -231,13 +230,13 @@ namespace Mc2.CrudTest.AcceptanceTests.BDDTests.Features
                             "+3161234567",
                             "01-FEB-2010",
                             "IR000000000000002"});
-#line 30
+#line 29
         testRunner.And("user can lookup all customers and filter by below properties and get \"1\" records", ((string)(null)), table12, "And ");
 #line hidden
-#line 33
-        testRunner.When("user delete customer by Email of \"new@email.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 32
+        testRunner.When("user delete customer by Email of \"jane@william.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 34
+#line 33
         testRunner.Then("user can get all records and get \"0\" records", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

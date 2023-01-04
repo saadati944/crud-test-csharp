@@ -39,7 +39,7 @@ public class HasNameAndDateOfBirthSpecification : ISpecification<Customer>
 
     public IQueryable<Customer> Apply(IQueryable<Customer> query)
     {
-        return query.Where(c => c.Firstname == _firstname && c.Lastname == _lastname && c.DateOfBirth == _dateOfBirth);
+        return query.Where(c => c.Firstname == _firstname && c.Lastname == _lastname && c.DateOfBirth.Date == _dateOfBirth.Date);
     }
 }
 
@@ -114,6 +114,7 @@ public class AllPropertiesSpecification : ISpecification<Customer>
         return query.Where(q =>
             (string.IsNullOrWhiteSpace(FirstName) || q.Firstname == FirstName)
             && (string.IsNullOrWhiteSpace(LastName) || q.Lastname == LastName)
+            && (DateOfBirth == null || q.DateOfBirth.Date == DateOfBirth.Value.Date)
             && (Email == null || q.Email.Address == Email.Address)
             && (PhoneNumber == null || q.PhoneNumber.Number == PhoneNumber.Number)
             && (string.IsNullOrWhiteSpace(BankAccountNumber) || q.BankAccountNumber == BankAccountNumber)
