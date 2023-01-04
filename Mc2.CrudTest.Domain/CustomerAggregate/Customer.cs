@@ -122,5 +122,5 @@ public partial class Customer
     }
 
     [GeneratedRegex("[A-Z]{2}[0-9]{2}[A-Z0-9]{4}[0-9]{7}([A-Z0-9]?){0,16}")]
-    private static partial Regex IsBankAccountNumberValid();
+    public static partial Regex IsBankAccountNumberValid();
 }

@@ -19,7 +19,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace Mc2.CrudTest.AcceptanceTests.BDDTests.Steps;
 
 [Binding]
-public class CustomerCreationSteps : IClassFixture<CustomersWebApiFactory>
+public class CustomerCreationSteps
 {
     private readonly HttpClient _client;
     private List<CreateCustomerRequest> _customersInformation;
@@ -88,7 +88,7 @@ public class CustomerCreationSteps : IClassFixture<CustomersWebApiFactory>
             Assert.Equal(_customersInformation[i].LastName.ToLower(), result.LastName);
             Assert.Equal(_customersInformation[i].DateOfBirth, result.DateOfBirth);
             Assert.Equal(_customersInformation[i].PhoneNumber, result.PhoneNumber);
-            Assert.Equal(_customersInformation[i].EmailAddress.ToLower(), result.EmailAddress);
+            Assert.Equal(_customersInformation[i].Email.ToLower(), result.Email);
             Assert.Equal(_customersInformation[i].BankAccountNumber.ToUpper(), result.BankAccountNumber);
         }
     }
@@ -106,7 +106,7 @@ public class CustomerCreationSteps : IClassFixture<CustomersWebApiFactory>
                 Assert.Equal(_customersInformation[i].LastName.ToLower(), result.LastName);
                 Assert.Equal(_customersInformation[i].DateOfBirth, result.DateOfBirth);
                 Assert.Equal(_customersInformation[i].PhoneNumber, result.PhoneNumber);
-                Assert.Equal(_customersInformation[i].EmailAddress.ToLower(), result.EmailAddress);
+                Assert.Equal(_customersInformation[i].Email.ToLower(), result.Email);
                 Assert.Equal(_customersInformation[i].BankAccountNumber.ToUpper(), result.BankAccountNumber);
             }
             else

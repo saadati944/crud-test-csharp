@@ -43,7 +43,7 @@ public class CreateCustomerTests : IClassFixture<CustomersWebApiFactory>
         Assert.Equal(customer.LastName.ToLower(), result.LastName);
         Assert.Equal(customer.DateOfBirth, result.DateOfBirth);
         Assert.Equal(customer.PhoneNumber, result.PhoneNumber);
-        Assert.Equal(customer.EmailAddress.ToLower(), result.EmailAddress);
+        Assert.Equal(customer.Email.ToLower(), result.Email);
         Assert.Equal(customer.BankAccountNumber.ToUpper(), result.BankAccountNumber);
     }
 
