@@ -84,11 +84,3 @@ public sealed record UpdateCustomerRequest(
         };
     }
 }
-
-//public sealed record FilterCustomerRequest(
-//    string FirstName,
-//    string LastName,
-//    DateTime DateOfBirth,
-//    string PhoneNumber,
-//    string Email,
-//    string BankAccountNumber);
