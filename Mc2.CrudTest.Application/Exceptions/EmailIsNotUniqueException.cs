@@ -2,7 +2,6 @@
 
 public class EmailIsNotUniqueException : BaseException
 {
-    public EmailIsNotUniqueException(string message) : base(message)
-    {
-    }
+    public override int ErrorCode => 202;
+    public override string ErrorMessage => "Duplicate customer by Email address";
 }

@@ -1,8 +1,11 @@
 ﻿namespace Mc2.CrudTest.Domain.Abstractions;
 
-public class BaseException : Exception
+public abstract class BaseException : Exception
 {
-    public BaseException(string message) : base(message)
+    public BaseException()
     {
     }
+
+    public virtual int ErrorCode { get; } = 300;
+    public virtual string ErrorMessage { get; } = "Invalid operation";
 }

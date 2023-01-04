@@ -26,11 +26,11 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Unit
         // Check email uniqueness
         if (!customer.Email.Equals(Email.Create(request.EmailAddress))
                 && (await _customerRepository.GetCustomers(emailSpec, 0, 1)).Any())
-            throw new EmailIsNotUniqueException($"There is already a customer with email {request.EmailAddress}");
+            throw new EmailIsNotUniqueException();
 
         // Check (firstname, lastname, dateofbirth) uniqueness
         if ((await _customerRepository.GetCustomers(nameAndDateOfBirthSpec, 0, 1)).Any())
-            throw new CustomerNameAndDateOfBirthIsNotUnique($"There is already a customer with the specified first name, last name and date of birth");
+            throw new CustomerNameAndDateOfBirthIsNotUnique();
 
         customer.Firstname = request.Firstname;
         customer.Lastname = request.Lastname;

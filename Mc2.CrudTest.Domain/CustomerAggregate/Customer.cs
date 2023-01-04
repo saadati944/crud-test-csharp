@@ -16,7 +16,7 @@ public partial class Customer
         set
         {
             if (string.IsNullOrEmpty(value) || value.Length > 150)
-                throw new InvalidFirstNameException("Invalid first name");
+                throw new InvalidFirstNameException();
 
             _firstname = value;
         }
@@ -32,7 +32,7 @@ public partial class Customer
         set
         {
             if (string.IsNullOrEmpty(value) || value.Length > 150)
-                throw new InvalidLastNameException("Invalid last name");
+                throw new InvalidLastNameException();
 
             _lastname = value;
         }
@@ -50,7 +50,7 @@ public partial class Customer
             // To test this kind of stuff you shouldn't use DateTime.Now. instead you can create
             // something like IDateTimeProvider and get Now from that service
             if (value > DateTime.Now)
-                throw new InvalidDateOfBirthException("The date of birth can not be in the future");
+                throw new InvalidDateOfBirthException();
             
             _dateOfBirth = value;
         }
@@ -70,7 +70,7 @@ public partial class Customer
         set
         {
             if (string.IsNullOrEmpty(value) || value.Length > 30)
-                throw new InvalidBankAccountNumberException("Invalid bank account number");
+                throw new InvalidBankAccountNumberException();
 
             _bankAccountNumber = value;
         }
@@ -95,11 +95,11 @@ public partial class Customer
     public static Customer Create(string firstname, string lastname, DateTime dateOfBirth, string phoneNumber, string email, string bankAccountNumber, IPhoneNumberParser numberParser)
     {
         if (string.IsNullOrWhiteSpace(bankAccountNumber) || bankAccountNumber.Length > 34)
-            throw new InvalidBankAccountNumberException("");
+            throw new InvalidBankAccountNumberException();
 
         bankAccountNumber = bankAccountNumber.ToUpper();
         if (!IsBankAccountNumberValid().IsMatch(bankAccountNumber))
-            throw new InvalidBankAccountNumberException($"Bank account number '{bankAccountNumber}' is not valid. Account numbers must be in this format: 0000-0000-0000-0000");
+            throw new InvalidBankAccountNumberException();
 
         var id = Guid.NewGuid();
         var phone = PhoneNumber.Create(phoneNumber, numberParser);

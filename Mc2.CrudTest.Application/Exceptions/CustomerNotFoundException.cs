@@ -2,7 +2,5 @@
 
 public class CustomerNotFoundException : BaseException
 {
-    public CustomerNotFoundException() : base("Customer not found")
-    {
-    }
+    public override string ErrorMessage => "Customer not found";
 }

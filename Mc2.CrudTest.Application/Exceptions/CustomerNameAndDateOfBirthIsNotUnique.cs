@@ -2,7 +2,6 @@
 
 public class CustomerNameAndDateOfBirthIsNotUnique : BaseException
 {
-    public CustomerNameAndDateOfBirthIsNotUnique(string message) : base(message)
-    {
-    }
+    public override int ErrorCode => 201;
+    public override string ErrorMessage => "Duplicate customer by First-name, Last-name, Date-of-Birth";
 }
