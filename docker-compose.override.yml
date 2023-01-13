@@ -1,8 +1,1 @@
 version: '3.4'
-
-services:
-  mc2.crudtest.api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "80"
