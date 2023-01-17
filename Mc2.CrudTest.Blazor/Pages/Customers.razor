@@ -1,0 +1,35 @@
+﻿@page "/customers"
+@using System.Web;
+@using System.Net;
+@using Mc2.CrudTest.Blazor.Models;
+
+@inject HttpClient client;
+
+<div class="row">
+    <div class="col-8">
+        <CustomersList OnEdit="@EditCustomer" @ref="customersList"></CustomersList>
+    </div>
+    <div class="col-4">
+        <CustomerForm @ref="customerForm" OnCustomerCreated="@OnNewCustomerCreated" OnCustomerUpdated="OnCustomerUpdated"></CustomerForm>
+    </div>
+</div>
+
+@code {
+    private CustomersList customersList;
+    private CustomerForm customerForm;
+
+    private async Task OnNewCustomerCreated()
+    {
+        await customersList.ReloadData();
+    }
+
+    private async Task OnCustomerUpdated()
+    {
+        await customersList.ReloadData();
+    }
+
+    private void EditCustomer(CustomerModel customer)
+    {
+        customerForm.UpdateCustomer(customer);
+    }
+}

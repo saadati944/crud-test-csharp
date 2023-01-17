@@ -1,0 +1,148 @@
+﻿@using System.Web;
+@using System.Net;
+@using Mc2.CrudTest.Blazor.Models;
+
+@inject HttpClient client;
+
+<div class="card-header">
+    Customers
+</div>
+<div class="card-body overflow-auto">
+    <div class="row">
+        <button class="col btn btn-light" style="max-width:44px; max-height:38px;" @onclick="ReloadData">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+            </svg>
+        </button>
+        <button class="col btn btn-light" style="max-width:44px; max-height:38px; margin-left:5px; margin-right:5px;" @onclick="PreviousPage">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+        </button>
+        <p class="col-3 mb-auto mt-auto text-center">
+            Page @currentPage of @totalPages
+        </p>
+        <button class="col btn btn-light" style="max-width:44px; max-height:38px; margin-left:5px;" @onclick="NextPage">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+            </svg>
+        </button>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date Of Birth</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Bank Account Number</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="customersTableBody">
+        @if (customers is null)
+        {
+            <tr><td><em>Loading...</em></td></tr>
+        }
+        else
+        {
+            @foreach (var c in customers.Records)
+            {
+                <tr>
+                    <td>@c.FirstName</td>
+                    <td>@c.LastName</td>
+                    <td>@c.DateOfBirth.ToShortDateString()</td>
+                    <td>@c.PhoneNumber</td>
+                    <td>@c.Email</td>
+                    <td>@c.BankAccountNumber</td>
+                    <td>
+                        <button @onclick="(async() => await EditCustomer(c))"  class="btn btn-warning">Edit</button>
+                        <button @onclick="(async() => await DeleteCustomer(c.ID))"  class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<CustomerModel> OnEdit { get; set; }
+
+    private int page = 0;
+    private int pageSize = 5;
+    private CustomersModel customers;
+
+
+    private int currentPage => customers?.Page + 1 ?? 1;
+    private int totalPages => (customers is not null) ? (int)Math.Ceiling((decimal)customers.TotalCount / customers.PageSize) : 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await ReloadData();
+    }
+
+    public async Task ReloadData()
+    {
+        if (client == null)
+            return;
+
+        var query = HttpUtility.ParseQueryString(string.Empty);
+        query["Page"] = page.ToString();
+        query["PageSize"] = pageSize.ToString();
+        //add more filter params
+
+        var response = await client.GetAsync($"Customers?{query}");
+        if (response.StatusCode != HttpStatusCode.OK)
+            return; // show proper error
+
+        var result = await response.Content.ReadFromJsonAsync<CustomersModel>();
+        customers = result;
+
+        if(page+1 > totalPages)
+        {
+            page = totalPages-1;
+            await ReloadData();
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task NextPage()
+    {
+        if (page+1 >= totalPages)
+            return;
+
+        page++;
+        await ReloadData();
+    }
+
+    private async Task PreviousPage()
+    {
+        if (page <= 0)
+            return;
+
+        page--;
+        await ReloadData();
+    }
+
+    private async Task EditCustomer(CustomerModel customer)
+    {
+        await OnEdit.InvokeAsync(customer);
+    }
+
+    private async Task DeleteCustomer(string id)
+    {
+        if (client == null)
+            return;
+
+        var response = await client.DeleteAsync($"Customers/{id}");
+        //check response status code
+
+        await ReloadData();
+    }
+}

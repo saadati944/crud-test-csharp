@@ -20,8 +20,8 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Unit
         if (customer is null)
             throw new CustomerNotFoundException();
 
-        var emailSpec = new HasEmailSpecification(Email.Create(request.EmailAddress).Address);
-        var nameAndDateOfBirthSpec = new HasNameAndDateOfBirthSpecification(request.Firstname, request.Lastname, request.DateOfBirth);
+        var emailSpec = new HasEmailSpecification(Email.Create(request.EmailAddress).Address, request.ID);
+        var nameAndDateOfBirthSpec = new HasNameAndDateOfBirthSpecification(request.Firstname, request.Lastname, request.DateOfBirth, request.ID);
         
         // Check email uniqueness
         if (!customer.Email.Equals(Email.Create(request.EmailAddress))
