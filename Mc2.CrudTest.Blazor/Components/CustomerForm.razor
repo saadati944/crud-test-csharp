@@ -1,0 +1,138 @@
+﻿@using System.Net;
+@using Mc2.CrudTest.Blazor.Models;
+@inject HttpClient client
+
+<div>
+    <div class="card-header">
+        @((id is null) ? "Create new customer" : "Update customer")
+    </div>
+    <div class="card-body">
+        <EditForm Model="@customer" OnValidSubmit="@CustoemrForm_OnValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <InputText class="form-control" id="firstName" @bind-Value="customer.FirstName"/>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <InputText class="form-control" id="lastName" @bind-Value="customer.LastName"/>
+            </div>
+            <div class="form-group">
+                <label for="dateOfBirth">Date Of Birth:</label>
+                <InputDate class="form-control" id="dateOfBirth" @bind-Value="customer.DateOfBirth"/>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <InputText class="form-control" id="email" @bind-Value="customer.Email"/>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <InputText class="form-control" id="phoneNumber" @bind-Value="customer.PhoneNumber"/>
+            </div>
+            <div class="form-group">
+                <label for="bankAccountNumber">Bank Account Number:</label>
+                <InputText class="form-control" id="bankAccountNumber" @bind-Value="customer.BankAccountNumber"/>
+            </div>
+            <div class="row mt-2">
+                <button id="BtnCreateCustomer" type="submit" class="btn @((id is null) ? "btn-success" : "btn-primary") col-5 mx-auto">
+                    @((id is null) ? "Create" : "Update")
+                </button>
+                <button type="button" class="btn btn-danger col-5 mx-auto" @onclick="ResetForm">
+                    Reset
+                </button>
+            </div>
+        </EditForm>
+    </div>
+    <div class="card-footer">
+        <NotificationHolder @ref="notifications"></NotificationHolder>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback OnCustomerCreated { get; set; }
+    [Parameter]
+    public EventCallback OnCustomerUpdated { get; set; }
+
+    private NotificationHolder notifications;
+    private CreateCustomerModel customer = CreateCustomerModel.Default();
+    private string id = null;
+    private string status = "";
+
+    public void UpdateCustomer(CustomerModel c)
+    {
+        customer = new CreateCustomerModel
+        {
+            FirstName = c.FirstName,
+            LastName = c.LastName,
+            DateOfBirth = c.DateOfBirth,
+            Email = c.Email,
+            PhoneNumber = c.PhoneNumber,
+            BankAccountNumber = c.BankAccountNumber
+        };
+        id = c.ID;
+
+        // StateHasChanged();
+    }
+
+    public async Task CustoemrForm_OnValidSubmit()
+    {
+        await ((id is null)
+            ? CreateCustomerAsync()
+            : UpdateCustomerAsync());
+    }
+
+    private void ResetForm()
+    {
+        id = null;
+        customer = CreateCustomerModel.Default();
+        status = "";
+    }
+
+    private async Task CreateCustomerAsync()
+    {
+        var response = await client.PostAsJsonAsync<CreateCustomerModel>("Customers", customer);
+        if (response.StatusCode == HttpStatusCode.Created)
+        {
+            ResetForm();
+            notifications.Add("Saved", NotificationType.Success, 2000);
+            // status = "Saved";
+            await OnCustomerCreated.InvokeAsync();
+        }
+        else if (response.StatusCode == HttpStatusCode.BadRequest)
+        {
+            var err = await response.Content.ReadFromJsonAsync<ErrorModel>();
+            notifications.Add(err.ErrorMessage, NotificationType.Danger, 3500);
+            // status = "Validation error";
+        }
+        else
+        {
+            // status = "Internal server error!";
+            notifications.Add("Internal server error!", NotificationType.Danger, 3500);
+        }
+    }
+
+    private async Task UpdateCustomerAsync()
+    {
+        var response = await client.PutAsJsonAsync($"Customers/{id}", customer);
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            ResetForm();
+            // status = "Customer updated";
+            notifications.Add("Customer updated", NotificationType.Success, 2000);
+            await OnCustomerUpdated.InvokeAsync();
+        }
+        else if (response.StatusCode == HttpStatusCode.BadRequest)
+        {
+            var err = await response.Content.ReadFromJsonAsync<ErrorModel>();
+            notifications.Add(err.ErrorMessage, NotificationType.Danger, 3500);
+            // status = "Validation error";
+        }
+        else
+        {
+            // status = "Internal server error!";
+            notifications.Add("Internal server error!", NotificationType.Danger, 3500);
+        }
+    }
+}

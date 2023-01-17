@@ -15,7 +15,7 @@ public partial class Customer
         }
         set
         {
-            if (string.IsNullOrEmpty(value) || value.Length > 150)
+            if (string.IsNullOrWhiteSpace(value) || value.Length > 150)
                 throw new InvalidFirstNameException();
 
             _firstname = value;
@@ -31,7 +31,7 @@ public partial class Customer
         }
         set
         {
-            if (string.IsNullOrEmpty(value) || value.Length > 150)
+            if (string.IsNullOrWhiteSpace(value) || value.Length > 150)
                 throw new InvalidLastNameException();
 
             _lastname = value;
@@ -69,7 +69,7 @@ public partial class Customer
         }
         set
         {
-            if (string.IsNullOrEmpty(value) || value.Length > 30)
+            if (string.IsNullOrWhiteSpace(value) || value.Length > 34)
                 throw new InvalidBankAccountNumberException();
 
             _bankAccountNumber = value;

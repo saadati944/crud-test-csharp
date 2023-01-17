@@ -13,12 +13,16 @@ services:
       - 80:80
     depends_on:
       - mc2.crudtest.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
 
   mc2.crudtest.api:
     image: ${DOCKER_REGISTRY-}mc2crudtestapi
     build:
       context: .
       dockerfile: Mc2.CrudTest.Api/Dockerfile
+    ports:
+      - 8080:80
     depends_on:
       - crud-test-sql-server
     environment:

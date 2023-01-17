@@ -12,15 +12,20 @@ public class AllCustomersSpecification : ISpecification<Customer>
 public class HasEmailSpecification : ISpecification<Customer>
 {
     private string _email;
+    private Guid _customerIdToExcept;
 
-    public HasEmailSpecification(string email)
+    public HasEmailSpecification(string email, Guid customerIdToExcept = default)
     {
         _email = email;
+        _customerIdToExcept = customerIdToExcept;
     }
 
     public IQueryable<Customer> Apply(IQueryable<Customer> query)
     {
-        return query.Where(c => c.Email.Address == _email);
+        var q = query.Where(c => c.Email.Address == _email);
+        if (_customerIdToExcept != default(Guid))
+            return q.Where(c => c.ID != _customerIdToExcept);
+        return q;
     }
 }
 
@@ -29,17 +34,22 @@ public class HasNameAndDateOfBirthSpecification : ISpecification<Customer>
     private string _firstname;
     private string _lastname;
     private DateTime _dateOfBirth;
+    private Guid _customerIdToExcept;
 
-    public HasNameAndDateOfBirthSpecification(string firstname, string lastname, DateTime dateOfBirth)
+    public HasNameAndDateOfBirthSpecification(string firstname, string lastname, DateTime dateOfBirth, Guid customerIdToExcept = default)
     {
         _firstname = firstname;
         _lastname = lastname;
         _dateOfBirth = dateOfBirth;
+        _customerIdToExcept = customerIdToExcept;
     }
 
     public IQueryable<Customer> Apply(IQueryable<Customer> query)
     {
-        return query.Where(c => c.Firstname == _firstname && c.Lastname == _lastname && c.DateOfBirth.Date == _dateOfBirth.Date);
+        var q = query.Where(c => c.Firstname == _firstname && c.Lastname == _lastname && c.DateOfBirth.Date == _dateOfBirth.Date);
+        if (_customerIdToExcept != default(Guid))
+            return q.Where(c => c.ID != _customerIdToExcept);
+        return q;
     }
 }
 

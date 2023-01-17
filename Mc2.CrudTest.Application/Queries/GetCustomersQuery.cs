@@ -22,6 +22,8 @@ public class GetCustomersQuery : IRequest<CustomersDTO>
     {
         return new GetCustomersQuery()
         {
+            Page = page,
+            PageSize = pageSize,
             FirstName = firstName,
             LastName = lastName,
             DateOfBirth = dateOfBirth,
